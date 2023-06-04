@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
+<style>
+    body {
+        background: linear-gradient(to bottom right, #a4d1ff, #FFA500 );
+    }
+
+
+    .center-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 500px;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .fadeIn {
+        animation-name: fadeIn;
+        animation-duration: 1s;
+    }
+</style>
+
+{% if user.is_authenticated %}
+<h1 class="text-center fPersian mt-3">Online Booking</h1>
+
+<div class="shadow p-4 mb-5 bg-body rounded text-black text-center m-5 center-box fadeIn">
+    <form method="post" action="{% url 'bookingSubmit' %}" class="me-2 ms-2" required>
+        {% csrf_token %}
+        
+        <!-- Input time -->
+        <h3 class="text-center fPersian mt-4">Time:</h3>
+        <div>
+            <select class="form-select fs-3 text-center" name="time">
+                {% for time in times %}
+                <option value="{{time}}">{{time}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary text-white fPersian">Submit</button>
+        </div>
+
+    </form>
+</div>
+
+{% else %}
+
+<div class="shadow p-4 mb-5 bg-body rounded text-black m-5 center-box fadeIn">
+    <h1 class="p-2 me-3">First Sign in!</h1>
+    <a href="{% url 'login' %}" class="btn btn-primary text-white">Sign in</a>
+</div>
+
+{% endif %}
+
+<!-- Random generated info -->
+<div class="text-center mt-5">
+    <p class="info-text">Select a best time to discuss. Our team will arrange a premium lounge on the selected time</p>
+    <p class="info-text">Please note: As of now, one-on-one meetings are only available on selected dates. Please refer to the dates in the booking window.</p>
+</div>
+
+{% endblock %}

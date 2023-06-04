@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Book Property</h1>
+    <form method="POST" action="{% url 'book_property' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Proceed to Payment</button>
+    </form>
+{% endblock %}

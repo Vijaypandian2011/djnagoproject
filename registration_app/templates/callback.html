@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Vijay Realty - Callback Request{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h2 class="mb-4">Callback Request</h2>
+    <form method="POST" action="{% url 'save_callback' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact Number:</label>
+        <input type="tel" class="form-control" id="contact" name="contact" required>
+      </div>
+      <div class="form-group">
+        <label for="property_type">Property Type:</label>
+        <select class="form-control" id="property_type" name="property_type" required>
+          <option value="" disabled selected>Select property type</option>
+          <option value="commercial">Commercial</option>
+          <option value="residential">Residential</option>
+          <option value="farmland">Farmland</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="budget">Your Budget (in lakhs):</label>
+        <input type="range" class="form-control-range" id="budget" name="budget" min="0" max="100" step="1">
+        <span id="budget-value">0</span> lakhs
+      </div>
+      <div class="form-group">
+        <label for="location">Preferred Location for Property:</label>
+        <div id="map" style="height: 300px;"></div>
+        <input type="hidden" id="latitude" name="latitude" required>
+        <input type="hidden" id="longitude" name="longitude" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+
+<script>
+  // Initialize the map
+  var map = L.map('map').setView([9.899111579519712, 78.07237350094458], 2);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    maxZoom: 18
+  }).addTo(map);
+
+  var marker = L.marker([9.899111579519712, 78.07237350094458] , { draggable: true }).addTo(map);
+
+  marker.on('dragend', function (event) {
+    var latLng = event.target.getLatLng();
+    document.getElementById("latitude").value = latLng.lat;
+    document.getElementById("longitude").value = latLng.lng;
+  });
+
+  // Update the Budget slider value dynamically
+  var budgetSlider = document.getElementById("budget");
+  var budgetValue = document.getElementById("budget-value");
+
+  budgetSlider.addEventListener("input", function () {
+    budgetValue.textContent = budgetSlider.value;
+  });
+</script>
+{% endblock %}

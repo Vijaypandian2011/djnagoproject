@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Apply - Vijay Realty
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="container" >
+    <div class="parent" style="display:flex; justify-content:space-around;width:100%">
+    <div class="job-description-container">
+      <h2>Customer Care Executive</h2>
+      <p>Date Published: May 29, 2023</p>
+      <h4>Eligibility:</h4>
+      <ul>
+        <li>Excellent communication skills</li>
+        <li>Prior experience in customer service</li>
+        <li>Strong problem-solving skills</li>
+      </ul>
+      <h4>Responsibilities:</h4>
+      <ul>
+        <li>Handle customer inquiries via email and live chat</li>
+        <li>Provide information about products and services</li>
+        <li>Resolve customer complaints and ensure customer satisfaction</li>
+        <li>Maintain a high level of professionalism </li>
+        <li>Collaborate with other teams to handle customers</li>
+      </ul>
+      <h4>Perks:</h4>
+      <ul>
+        <li>Competitive salary</li>
+        <li>Healthcare benefits</li>
+        <li>Work From Home with paid amenities</li>
+      </ul>
+    </div>
+
+    <div class="form-container" style="width:800px">
+      <h1 class="text-center">Apply</h1>
+
+      <form method="post" enctype="multipart/form-data" class="text-center">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label for="{{ form.Name.id_for_label }}" class="col-sm-4 col-form-label">{{ form.Name.label }}</label>
+              <div class="col-sm-8">
+           {{ form.Name }}
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.DateOfBirth.id_for_label }}"  class="col-sm-4 col-form-label">{{ form.DateOfBirth.label }}</label>
+              <div class="col-sm-8">
+                <div class="input-group date" data-provide="datepicker">
+                    &nbsp;     {{ form.DateOfBirth }}
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.Age.id_for_label }}" class="col-sm-4 col-form-label">{{ form.Age.label }}</label>
+              <div class="col-sm-8">
+                {{ form.Age }}
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.EmailAddress.id_for_label }}" class="col-sm-4 col-form-label">{{ form.EmailAddress.label }}</label>
+              <div class="col-sm-8">
+                {{ form.EmailAddress }}
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.PhoneNumber.id_for_label }}" class="col-sm-4 col-form-label">{{ form.PhoneNumber.label }}</label>
+              <div class="col-sm-8">
+                {{ form.PhoneNumber }}
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.LinkedInUrl.id_for_label }}" class="col-sm-4 col-form-label">{{ form.LinkedInUrl.label }}</label>
+              <div class="col-sm-8">
+                {{ form.LinkedInUrl }}
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.Address.id_for_label }}" class="col-sm-4 col-form-label">{{ form.Address.label }}</label>
+              <div class="col-sm-8">
+                {{ form.Address }}
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="{{ form.pdf_file.id_for_label }}" class="col-sm-4 col-form-label">CV/Resume ({{ form.pdf_file.label }})</label>
+              <div class="col-sm-8">
+                {{ form.pdf_file }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <div class="application-status">
+        {% if application_successful %}
+          <p>Application Successful</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.input-group.date').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true
+      });
+    });
+  </script>
+{% endblock %}

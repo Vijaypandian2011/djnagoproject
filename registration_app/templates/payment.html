@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Payment Details</h1>
+    <form method="POST" action="{% url 'make_payment' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="booking_id" value="{{ booking_id }}">
+        <button type="submit">Make Payment</button>
+    </form>
+{% endblock %}

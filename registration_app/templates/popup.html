@@ -1,0 +1,18 @@
+<!-- popup.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="popup">
+    <h3>Thank you!</h3>
+    <p>One of our executives will be in touch with you soon...</p>
+    <p class="redirect-message">You will be automatically redirected to the homepage.</p>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        setTimeout(function() {
+            window.location.href = "{% url 'home' %}";
+        }, 6000);
+    });
+</script>
+{% endblock %}

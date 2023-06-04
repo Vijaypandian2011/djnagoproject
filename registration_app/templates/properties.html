@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}Listed Properties - Vijay Realty{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Listed Properties</h1>
+  <div class="filter-options row">
+    <div class="col-md-3">
+      <label for="propertyTypeFilter">Property Type:</label>
+      <select id="propertyTypeFilter" class="form-control">
+        <option value="">All</option>
+        <option value="Commercial">Commercial</option>
+        <option value="Residential">Residential</option>
+        <option value="Farmland">Farmland</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="sortBy">Sort By:</label>
+      <select id="sortBy" class="form-control">
+        <option value="priceAsc">Price (Low to High)</option>
+        <option value="priceDesc">Price (High to Low)</option>
+        <option value="areaAsc">Area (Low to High)</option>
+        <option value="areaDesc">Area (High to Low)</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="priceRangeFilter">Price Range:</label>
+      <select id="priceRangeFilter" class="form-control">
+        <option value="">All</option>
+        <option value="0-500000">Up to ₹5,00,000</option>
+        <option value="500000-1000000">₹5,00,000 - ₹10,00,000</option>
+        <option value="1000000-3000000">₹10,00,000 - ₹30,00,000</option>
+        <option value="3000000-10000000">₹30,00,000 - ₹1,00,00,000</option>
+        <!-- Add more price ranges if needed -->
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="locationFilter">Location:</label>
+      <select id="locationFilter" class="form-control">
+        <option value="">All</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Madurai">Madurai</option>
+        <option value="Kochi">Kochi</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <!-- Add more locations if needed -->
+      </select>
+    </div>
+  </div>
+  <div class="row" id="propertyList">
+    {% for property in properties %}
+    <div class="col-md-6 property-card" data-property-type="{{ property.property_type }}" data-price="{{ property.price }}" data-area="{{ property.area }}" data-location="{{ property.location }}">
+      <div class="card">
+        <img src="{% if property.property_type == 'Residential' %}https://res.cloudinary.com/voyehomes/image/upload/v1677558515/property/74/thumbnail/thumbnail.jpg{% elif property.property_type == 'Commercial' %}https://st.depositphotos.com/1014609/3029/i/950/depositphotos_30291799-stock-photo-alley-with-modern-office-buildings.jpg{% elif property.property_type == 'Farmland' %}https://upload.wikimedia.org/wikipedia/commons/f/f1/Agriculture_farm_TamilNadu_India_near_Kerala.jpg{% endif %}" class="card-img-top" alt="Property Image">
+        <div class="card-body">
+          <h2 class="card-title">{{ property.name }}</h2>
+          <p><strong>Location:</strong> {{ property.location }}</p>
+          <p><strong>Area:</strong> {{ property.area }} sq.ft</p>
+          <p><strong>Property Type:</strong> {{ property.property_type }}</p>
+          <p><strong>Price:</strong> {{ property.price }}</p>
+          <p>{{ property.description }}</p>
+          <a href="{% url 'book_property' %}" class="btn btn-primary">Book Property</a>
+          <a href="https://www.google.com/maps/search/{{ property.location }}" target="_blank" class="btn btn-secondary">View on Google Maps</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // Filter properties based on property type, price range, and location
+  document.getElementById('propertyTypeFilter').addEventListener('change', function () {
+    filterProperties();
+  });
+
+  document.getElementById('priceRangeFilter').addEventListener('change', function () {
+    filterProperties();
+  });
+
+  document.getElementById('locationFilter').addEventListener('change', function () {
+    filterProperties();
+  });
+
+  // Sort properties based on selected sorting option
+  document.getElementById('sortBy').addEventListener('change', function () {
+    sortProperties();
+  });
+
+  // Function to filter properties
+  function filterProperties() {
+    var propertyType = document.getElementById('propertyTypeFilter').value;
+    var priceRange = document.getElementById('priceRangeFilter').value;
+    var location = document.getElementById('locationFilter').value;
+
+    var propertyCards = document.getElementsByClassName('property-card');
+    for (var i = 0; i < propertyCards.length; i++) {
+      var card = propertyCards[i];
+      var cardPropertyType = card.getAttribute('data-property-type');
+      var cardPrice = parseFloat(card.getAttribute('data-price'));
+      var cardArea = parseFloat(card.getAttribute('data-area'));
+      var cardLocation = card.getAttribute('data-location');
+
+      var propertyTypeMatch = propertyType === '' || cardPropertyType === propertyType;
+      var priceRangeMatch = priceRange === '' || checkPriceRange(cardPrice, priceRange);
+      var locationMatch = location === '' || cardLocation === location;
+
+      if (propertyTypeMatch && priceRangeMatch && locationMatch) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  }
+
+  // Function to check if price is within the selected price range
+  function checkPriceRange(price, range) {
+    var rangeValues = range.split('-');
+    var minPrice = parseFloat(rangeValues[0]);
+    var maxPrice = parseFloat(rangeValues[1]);
+
+    return price >= minPrice && price <= maxPrice;
+  }
+
+  // Function to sort properties
+  function sortProperties() {
+    var sortBy = document.getElementById('sortBy').value;
+    var propertyList = document.getElementById('propertyList');
+    var propertyCards = propertyList.getElementsByClassName('property-card');
+    var sortedCards = Array.from(propertyCards);
+
+    if (sortBy === 'priceAsc') {
+      sortedCards.sort(function (a, b) {
+        var priceA = parseFloat(a.getAttribute('data-price'));
+        var priceB = parseFloat(b.getAttribute('data-price'));
+        return priceA - priceB;
+      });
+    } else if (sortBy === 'priceDesc') {
+      sortedCards.sort(function (a, b) {
+        var priceA = parseFloat(a.getAttribute('data-price'));
+        var priceB = parseFloat(b.getAttribute('data-price'));
+        return priceB - priceA;
+      });
+    } else if (sortBy === 'areaAsc') {
+      sortedCards.sort(function (a, b) {
+        var areaA = parseFloat(a.getAttribute('data-area'));
+        var areaB = parseFloat(b.getAttribute('data-area'));
+        return areaA - areaB;
+      });
+    } else if (sortBy === 'areaDesc') {
+      sortedCards.sort(function (a, b) {
+        var areaA = parseFloat(a.getAttribute('data-area'));
+        var areaB = parseFloat(b.getAttribute('data-area'));
+        return areaB - areaA;
+      });
+    }
+
+    for (var i = 0; i < sortedCards.length; i++) {
+      propertyList.appendChild(sortedCards[i]);
+    }
+  }
+</script>
+{% endblock %}

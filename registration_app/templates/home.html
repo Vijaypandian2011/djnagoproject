@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home - Vijay Realty
+{% endblock %}
+
+{% block content %}
+  <style>
+    .gradient-transition {
+      background: linear-gradient(45deg,#FFA500, #48a4ff);
+      animation: gradient-animation 10s ease-in-out infinite;
+      border-radius: 10px;
+      color: #000;
+    }
+
+    @keyframes gradient-animation {
+      0% { background: linear-gradient(45deg, #FFA500, #48a4ff); }
+      50% { background: linear-gradient(65deg, #FFA500, #48a4ff); }
+      100% { background: linear-gradient(85deg, #FFA500, #48a4ff); }
+    }
+
+    .container {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .blur-background {
+      background-image: url('https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      background-size: cover;
+      filter: blur(10px);
+      -webkit-filter: blur(2px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .vignette-effect {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.7) 90%);
+
+    }
+
+    .row mt-5 .carousel-item{
+      width:500px;
+      height:300px;
+      background-colour:;
+    }
+  </style>
+
+  <div class="blur-background"></div>
+  <div class="vignette-effect"></div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card shadow p-4 gradient-transition">
+          <h1 class="display-4">Find Your Dream Property</h1>
+          <p class="lead">Your trusted partner in finding the perfect residential or commercial property. Committed to delivering exceptional real estate solutions tailored to your needs.</p>
+          <a href="{% url 'property_list' %}" class="btn btn-primary btn-lg mt-3">Explore all Properties</a>
+          <a href="{% url 'login' %}" class="btn btn-primary btn-lg mt-3">Book an 1-1 meeting with our experts</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow p-4 gradient-transition">
+          <h2 class="mb-4">Premium Projects</h2>
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" height="300px" width="600px" src="https://static.squareyards.com/resources/images/mumbai/project-image/raheja-park-west-project-project-large-image1.jpg" alt="Project 1">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" height="300px" width="600px" src="https://thumbs.dreamstime.com/b/modern-american-farm-house-spring-landscape-27175625.jpg" alt="Project 2">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" height="300px" width="600px" src="https://e1.pxfuel.com/desktop-wallpaper/22/46/desktop-wallpaper-luxurious-3d-home-projects-with-amazingly-designed-real-estate.jpg" alt="Project 3">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card shadow p-4 gradient-transition">
+          <h2 class="mb-4">Our Speciality</h2>
+          <p>Fastest growing realty promoters in commercial properties, With years of experience and a strong commitment to excellence, we strive to provide our clients with the best real estate solutions.</p>
+          <p>Still Confused? Feel free to Request a Callback </p>
+          <a href="{% url 'save_callback' %}" class="btn btn-primary btn-lg mt-3">Request a Callback</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow p-4 gradient-transition">
+          <h2 class="mb-4">Projects in Progress</h2>
+          <ul class="list-group">
+            <li class="list-group-item">Chennai</li>
+            <li class="list-group-item">Hyderabad</li>
+            <li class="list-group-item">Madurai</li>
+            <li class="list-group-item">Kochi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card shadow p-4 gradient-transition">
+          <h2 class="mb-4">Upcoming Projects</h2>
+          <ul class="list-group">
+            <li class="list-group-item">Bangalore</li>
+            <li class="list-group-item">Pune</li>
+            <li class="list-group-item">Trivandram</li>
+            <li class="list-group-item">Goa</li>
+            <li class="list-group-item">Srinagar</li>
+            <li class="list-group-item">Gangtok</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow p-4 gradient-transition">
+          <h2 class="mb-4">Discover Our Properties</h2>
+          <p>Explore our wide range of properties designed to meet your unique requirements. From luxurious apartments to spacious commercial spaces, we have the perfect property for you. Expanding to 40+ metro cities in India and Singapore soon. Explore our premium projects and book a free meeting now! our experts are ready to help you</p>
+          <a href="{% url 'property_list' %}" class="btn btn-primary btn-lg mt-3">See Properties</a>
+          <a href="{% url 'save_callback' %}" class="btn btn-primary btn-lg mt-3">Request a Callback</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <div class="card shadow p-4 gradient-transition">
+          <h2 class="mb-4">What our customers say..</h2>
+          <div id="reviewCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                     <img src=# alt="⭐⭐⭐" class="rounded-circle">
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h5>Nithya from Chennai</h5>
+                    <p class="mb-0">"Really Great experience with Vijay Realty! The team was highly professional and helped me find my dream home. Highly recommended!"</p>
+                    <div class="rating mt-2">
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                     <img src=# alt="⭐⭐⭐" class="rounded-circle">
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h5>Aravind kumar from Kochi</h5>
+                    <p class="mb-0">"I am extremely satisfied with the services provided by Vijay Realty. They went above and beyond to find the perfect commercial space for my business. Thank you!"</p>
+                    <div class="rating mt-2">
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-half"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                    <img src=# alt="⭐⭐⭐" class="rounded-circle">
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h5>Irfan from Hyderabad</h5>
+                    <p class="mb-0">"I would like to express my gratitude to Vijay Realty for their outstanding service. They helped me find a beautiful apartment within my budget. Highly recommended!"</p>
+                    <div class="rating mt-2">
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+                      <span class="text-warning"><i class="bi bi-star-half"></i></span>
+                      <span class="text-warning"><i class="bi bi-star"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

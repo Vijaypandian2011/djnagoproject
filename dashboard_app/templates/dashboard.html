@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Data</h1>
+{{ data|safe }}
+
+<h1>Insights</h1>
+{{ insights|safe }}
+
+<h1>Graph</h1>
+<img src="{{ graph_image }}" alt="Graph">
+
+<!-- Add filters -->
+<h2>Filters</h2>
+<form method="GET" action="{% url 'dashboard' %}">
+  <label for="service">Service:</label>
+  <select name="service" id="service">
+    <option value="">All</option>
+    <option value="Service 1">Service 1</option>
+    <option value="Service 2">Service 2</option>
+    <option value="Service 3">Service 3</option>
+    <!-- Add more options for each service -->
+  </select>
+
+  <!-- Add more filter fields as per your requirements -->
+
+  <button type="submit">Apply Filters</button>
+</form>
+
+<!-- Add sorting -->
+<h2>Sorting</h2>
+<a href="{% url 'dashboard' %}?sort=service">Sort by Service</a>
+<a href="{% url 'dashboard' %}?sort=day">Sort by Day</a>
+<!-- Add more sorting options as per your requirements -->
+
+<!-- Display the filtered and sorted data -->
+{{ filtered_data|safe }}
+
+<!-- Add pagination if needed -->
+
+<!-- Add additional functionality as per your requirements -->
+{% endblock %}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .gradient-orange-blue {
+      background: linear-gradient(90deg,  #FFA500, #a4d1ff);
+    }
+
+    .brand {
+      font-size: 32px;
+      font-weight: bold;
+      animation: move-slogan 6s infinite;
+    }
+
+    .slogan {
+      animation: move-slogan 6s infinite;
+    }
+
+    @keyframes move-slogan {
+      0% {
+        transform: translateX(-100%);
+      }
+      50% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+
+    .awards {
+      display: flex;
+      gap: 10px;
+    }
+
+    .award-icon {
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+  </style>
+
+  <title>{% block title %}Vijay Realty - Management App{% endblock %}</title>
+</head>
+<body>
+  <header class="gradient-orange-blue py-3">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand text-dark brand" href="{% url 'home' %}">Vijay Realty</a>
+        <span class="text-dark slogan">Search. See. Love.</span>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="{% url 'login' %}">Book Appointments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="{% url 'about_us' %}">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="{% url 'apply' %}">We are Hiring!</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mt-5">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="gradient-orange-blue py-3 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="text-dark mb-3">Our Legacy</h5>
+          <p class="text-dark mb-0">With 25 years of real estate investment, development, and management experience, Vijay Realty has an unparalleled scale of delivery and an unmatched track record of customer-centric service excellence in India.  we value your business and will provide you with the individual attention and service you deserve. We believe in a strict Code of Ethics. We believe in integrity, commitment to excellence, a professional attitude, and personalized care.</p>
+        </div>
+        <div class="col-md-6">
+          <h5 class="text-dark mb-3">Contact</h5>
+          <p class="text-dark mb-0">Head Office: 12, HM Plaza, Anna nagar, Madurai, Tamilnadu - 625001</p>
+          <p class="text-dark mb-3">Contact: 0452 265 2277, +91 92333-92333</p>
+          <p class="text-dark mb-0">Branch Office: 100B, GK Towers, Guindy, Tamilnadu - 600012</p>
+          <p class="text-dark mb-3">Contact: +91 92444-92444</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+            <p>mail: support@vijayrealty.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <h5 class="text-dark mb-3">Awards and Recognition</h5>
+          <div class="d-flex align-items-center">
+            <div class="mr-2">
+              <img src="data:image/png;base64,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" alt="Customer Photo">
+            </div>
+            <div>
+              <p class="text-dark mb-0">"Awarded a 5-star rating by GRESB, the leading global ESG standard for real estate and infrastructure investments, for its entire 42.8 msf operational and development portfolio."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 text-center text-dark">
+      <p>&copy; Vijay Realty Limited (CIN No: L45101HR2006PLC095409) © 2023. Vijay Realty Limited. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

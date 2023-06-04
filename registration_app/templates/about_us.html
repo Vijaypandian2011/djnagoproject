@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div style="text-align: center;">
+        <h2>About Us</h2>
+        <p>Building Landmark Edifices
+            Vijay Realty stands for excellence and luxury in residential and commercial properties.
+            It was incorporated in 2018 with its focus on construction and development of residential,
+            commercial and SEZ projects across major Indian metros. To grow its footprint internationally,
+            and to give wings to its global ambitions, Vijay Realty branched out to London a couple of
+            years ago with some of the most marquee projects in the heart of upscale central London.
+            Ratings
+            IBREL has been assigned credit rating of AA- for long term debt, one of the highest in the industry.</p>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <img src="{% static 'WInner-1000x563_NEWGF.004.png' %}" alt="Great place to work" style="max-width: 50%; padding: 10px;">
+        <img src="{% static 'download.jpeg' %}" alt="Award" style="max-width: 50%; padding: 10px;">
+    </div>
+{% endblock %}
